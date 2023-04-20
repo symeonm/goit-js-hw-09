@@ -1,5 +1,6 @@
 import flatpickr from "flatpickr";
 import "flatpickr/dist/flatpickr.min.css";
+import Notiflix from 'notiflix';
 
 
 const dataInput = document.querySelector('#datetime-picker');
@@ -22,18 +23,17 @@ const options = {
   minuteIncrement: 1,
   onClose(selectedDates) {
   if (Date.parse(selectedDates) < Date.parse(options.defaultDate)) {
-    window.alert("Please choose a date in the future")
+    Notiflix.Notify.info("Please choose a date in the future")
   } else {
     start.disabled = false;
     options.valueDates = selectedDates;
-    // console.log(options.valueDates)
   }
   }
 };
 
 flatpickr(dataInput, options);
 
-let timerId = null;
+
 start.addEventListener('click', onClick);
 
 
@@ -41,25 +41,27 @@ start.addEventListener('click', onClick);
 function onClick() {
   const timerId = setInterval(onTimer, 1000);
   start.disabled = true;
+
   function onTimer(){
     if (Date.parse(options.valueDates) - Date.parse(new Date()) >= 0) {
       const currentTime = new Date();
     const ms = Date.parse(options.valueDates) - Date.parse(currentTime);
     const {days, hours, minutes, seconds} = convertMs(ms);
     
-    day.textContent = `${days}`;
-    hour.textContent = `${hours}`;
-    minute.textContent = `${minutes}`;
-    second.textContent = `${seconds}`;
+    day.textContent = day.textContent.length = 1 ? addLeadingZero(days) : `${days}`;
+    hour.textContent = hour.textContent.length = 1 ? addLeadingZero(hours) : `${hours}`;
+    minute.textContent = minute.textContent.length = 1 ? addLeadingZero(minutes) : `${minutes}`;
+    second.textContent = second.textContent.length = 1 ? addLeadingZero(seconds) : `${seconds}`;
     } else {
       clearInterval(timerId)
     }
     
   }
-
-  
-
 };
+
+ function addLeadingZero(value) {
+    return String(value).padStart(2, '0');
+  }
 
 
 function convertMs(ms) {
@@ -81,7 +83,19 @@ function convertMs(ms) {
 
    
   return { days, hours, minutes, seconds };
-  }
+}
+  
+  
+
+
+
+ 
+
+
+
+
+
+
 
 
  
@@ -93,8 +107,6 @@ function convertMs(ms) {
 
 
 
- 
-// console.dir(options.onClose())
 
 
 
@@ -106,17 +118,6 @@ function convertMs(ms) {
 
 
 
-
-
-
-
-
-
-
-
-// console.log(convertMs(2000)); // {days: 0, hours: 0, minutes: 0, seconds: 2}
-// console.log(convertMs(140000)); // {days: 0, hours: 0, minutes: 2, seconds: 20}
-// console.log(convertMs(24140000)); // {days: 0, hours: 6 minutes: 42, seconds: 20}
 
 
 
