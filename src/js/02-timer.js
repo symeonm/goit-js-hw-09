@@ -48,10 +48,10 @@ function onClick() {
     const ms = Date.parse(options.valueDates) - Date.parse(currentTime);
     const {days, hours, minutes, seconds} = convertMs(ms);
     
-    day.textContent = day.textContent.length = 1 ? addLeadingZero(days) : `${days}`;
-    hour.textContent = hour.textContent.length = 1 ? addLeadingZero(hours) : `${hours}`;
-    minute.textContent = minute.textContent.length = 1 ? addLeadingZero(minutes) : `${minutes}`;
-    second.textContent = second.textContent.length = 1 ? addLeadingZero(seconds) : `${seconds}`;
+    day.textContent.length = 1 ? day.textContent = addLeadingZero(days) : day.textContent = `${days}`;
+    hour.textContent.length = 1 ? hour.textContent = addLeadingZero(hours) : hour.textContent = `${hours}`;
+    minute.textContent.length = 1 ? minute.textContent = addLeadingZero(minutes) : minute.textContent = `${minutes}`;
+    second.textContent.length = 1 ? second.textContent = addLeadingZero(seconds) : second.textContent = `${seconds}`;
     } else {
       clearInterval(timerId)
     }
