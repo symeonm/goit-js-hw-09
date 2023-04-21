@@ -47,11 +47,12 @@ function onClick() {
       const currentTime = new Date();
     const ms = Date.parse(options.valueDates) - Date.parse(currentTime);
     const {days, hours, minutes, seconds} = convertMs(ms);
+    console.log(days, hours, minutes, seconds)
     
-    day.textContent.length = 1 ? day.textContent = addLeadingZero(days) : day.textContent = `${days}`;
-    hour.textContent.length = 1 ? hour.textContent = addLeadingZero(hours) : hour.textContent = `${hours}`;
-    minute.textContent.length = 1 ? minute.textContent = addLeadingZero(minutes) : minute.textContent = `${minutes}`;
-    second.textContent.length = 1 ? second.textContent = addLeadingZero(seconds) : second.textContent = `${seconds}`;
+    day.textContent = addLeadingZero(`${days}`); 
+    hour.textContent = addLeadingZero(`${hours}`);   
+    minute.textContent = addLeadingZero(`${minutes}`);
+    second.textContent = addLeadingZero(`${seconds}`);
     } else {
       clearInterval(timerId)
     }
